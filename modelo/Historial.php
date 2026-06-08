@@ -1,2 +1,14 @@
 <?php
-// Modelo Historial.
+
+require_once 'config/conexion.php';
+
+class Historial
+{
+    private $conexion;
+
+    public function __construct()
+    {
+        $db = new Conexion();
+        $this->conexion = $db->conectar();
+    }
+}

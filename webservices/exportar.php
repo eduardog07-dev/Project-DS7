@@ -1,2 +1,8 @@
 <?php
-// Servicio para exportar peliculas.
+
+header('Content-Type: application/json');
+
+echo json_encode([
+    "estado" => "ok",
+    "mensaje" => "Exportación pendiente"
+]);

@@ -1,1 +1,27 @@
-[]
+[
+    {
+        "titulo": "John Wick",
+        "anio": 2014,
+        "genero": "Acción"
+    },
+    {
+        "titulo": "Avatar",
+        "anio": 2009,
+        "genero": "Ciencia Ficción"
+    },
+    {
+        "titulo": "Interstellar",
+        "anio": 2014,
+        "genero": "Ciencia Ficción"
+    },
+    {
+        "titulo": "Titanic",
+        "anio": 1997,
+        "genero": "Drama"
+    },
+    {
+        "titulo": "Shrek",
+        "anio": 2001,
+        "genero": "Animación"
+    }
+]

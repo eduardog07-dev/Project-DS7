@@ -1,1 +1,46 @@
-/* Estilos principales de la aplicacion. */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+nav {
+    margin: 20px 0;
+}
+
+nav a {
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.card {
+    width: 220px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.card img {
+    width: 100%;
+}
+
+button {
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th,
+table td {
+    padding: 10px;
+}

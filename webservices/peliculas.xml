@@ -1,2 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<peliculas></peliculas>
+
+<peliculas>
+
+    <pelicula>
+        <titulo>John Wick</titulo>
+        <anio>2014</anio>
+        <genero>Acción</genero>
+    </pelicula>
+
+    <pelicula>
+        <titulo>Avatar</titulo>
+        <anio>2009</anio>
+        <genero>Ciencia Ficción</genero>
+    </pelicula>
+
+    <pelicula>
+        <titulo>Interstellar</titulo>
+        <anio>2014</anio>
+        <genero>Ciencia Ficción</genero>
+    </pelicula>
+
+    <pelicula>
+        <titulo>Titanic</titulo>
+        <anio>1997</anio>
+        <genero>Drama</genero>
+    </pelicula>
+
+    <pelicula>
+        <titulo>Shrek</titulo>
+        <anio>2001</anio>
+        <genero>Animación</genero>
+    </pelicula>
+
+</peliculas>

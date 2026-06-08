@@ -1,2 +1,3 @@
 <?php
-// Servicio para importar peliculas.
+
+echo "Importación pendiente";
