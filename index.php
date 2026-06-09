@@ -50,7 +50,13 @@ switch ($accion) {
 
     case 'dashboard':
 
-    require_once 'helpers/seguridad.php';
+    require_once 'controlador/AdminController.php';
+
+    $controller = new AdminController();
+
+    $controller->dashboard();
+
+    break;
 
     requireAdmin();
 
@@ -59,8 +65,14 @@ switch ($accion) {
     break;
 
     case 'listar_peliculas':
-        require 'vistas/admin/listar.php';
-        break;
+
+    require_once 'controlador/AdminController.php';
+
+    $controller = new AdminController();
+
+    $controller->listar();
+
+    break;
 
     case 'crear_pelicula':
         require 'vistas/admin/crear.php';

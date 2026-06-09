@@ -21,21 +21,8 @@ class AdminController
 
     public function listar()
     {
+        $peliculas = $this->peliculaModel->listar();
+
         require 'vistas/admin/listar.php';
-    }
-
-    public function crear()
-    {
-        require 'vistas/admin/crear.php';
-    }
-
-    public function editar()
-    {
-        require 'vistas/admin/editar.php';
-    }
-
-    public function reportes()
-    {
-        require 'vistas/admin/reportes.php';
     }
 }
