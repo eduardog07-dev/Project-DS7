@@ -1,27 +1,23 @@
 [
     {
-        "titulo": "John Wick",
-        "anio": 2014,
-        "genero": "Acción"
+        "titulo": "Avengers Endgame",
+        "descripcion": "Los Vengadores se reúnen para enfrentar a Thanos.",
+        "anio": 2019,
+        "imagen": "avengers.jpg",
+        "id_genero": 1
     },
     {
-        "titulo": "Avatar",
-        "anio": 2009,
-        "genero": "Ciencia Ficción"
+        "titulo": "Toy Story",
+        "descripcion": "Los juguetes cobran vida cuando nadie los ve.",
+        "anio": 1995,
+        "imagen": "toystory.jpg",
+        "id_genero": 2
     },
     {
-        "titulo": "Interstellar",
-        "anio": 2014,
-        "genero": "Ciencia Ficción"
-    },
-    {
-        "titulo": "Titanic",
-        "anio": 1997,
-        "genero": "Drama"
-    },
-    {
-        "titulo": "Shrek",
-        "anio": 2001,
-        "genero": "Animación"
+        "titulo": "El Padrino",
+        "descripcion": "Historia de una familia de la mafia italiana.",
+        "anio": 1972,
+        "imagen": "elpadrino.jpg",
+        "id_genero": 3
     }
 ]

@@ -1,3 +1,5 @@
+<?php require 'vistas/layout/menu.php'; ?>
+<link rel="stylesheet" href="assets/css/estilos.css">
 <h1>MovieMatch DS7</h1>
 
 <?php if(isset($_SESSION['nombre'])): ?>

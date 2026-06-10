@@ -1,3 +1,5 @@
+<?php require 'vistas/layout/menu.php'; ?>
+<link rel="stylesheet" href="assets/css/estilos.css">
 <h1>Mi Perfil</h1>
 
 <h3>

@@ -1,3 +1,5 @@
+<?php require 'vistas/layout/menu.php'; ?>
+<link rel="stylesheet" href="assets/css/estilos.css">
 <h1>Nueva Película</h1>
 
 <form method="POST">

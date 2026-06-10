@@ -1,3 +1,5 @@
+<?php require 'vistas/layout/menu.php'; ?>
+<link rel="stylesheet" href="assets/css/estilos.css">
 <h1>Películas Recomendadas</h1>
 
 <?php if(empty($peliculas)): ?>
@@ -10,11 +12,7 @@
 
 <?php foreach($peliculas as $pelicula): ?>
 
-    <div style="
-        border:1px solid #ccc;
-        padding:15px;
-        margin-bottom:15px;
-    ">
+    <div class="card">
 
         <h3>
             <?= htmlspecialchars($pelicula['titulo']) ?>
@@ -24,10 +22,9 @@
             <?= htmlspecialchars($pelicula['descripcion']) ?>
         </p>
 
-        <strong>
-            Género:
-            <?= htmlspecialchars($pelicula['genero']) ?>
-        </strong>
+        <span class="badge">
+        <?= htmlspecialchars($pelicula['genero']) ?>
+        </span>
 
         <br><br>
 

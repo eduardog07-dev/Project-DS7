@@ -112,9 +112,13 @@ switch ($accion) {
 
     case 'reportes':
 
-        require 'vistas/admin/reportes.php';
+    require_once 'controlador/AdminController.php';
 
-        break;
+    $controller = new AdminController();
+
+    $controller->reportes();
+
+    break;
 
     // =========================
     // USUARIO

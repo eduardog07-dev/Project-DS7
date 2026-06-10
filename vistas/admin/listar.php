@@ -1,3 +1,5 @@
+<?php require 'vistas/layout/menu.php'; ?>
+<link rel="stylesheet" href="assets/css/estilos.css">
 <h1>Listado de Películas</h1>
 
 <a href="index.php?accion=crear_pelicula">

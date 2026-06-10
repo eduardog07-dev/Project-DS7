@@ -155,4 +155,112 @@ public function recomendacionesPorUsuario(
         PDO::FETCH_ASSOC
     );
 }
+
+public function totalUsuarios()
+{
+    $sql = "SELECT COUNT(*) AS total
+            FROM usuarios";
+
+    $stmt = $this->conexion->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function totalCalificaciones()
+{
+    $sql = "SELECT COUNT(*) AS total
+            FROM calificaciones";
+
+    $stmt = $this->conexion->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function peliculasMasCalificadas()
+{
+    $sql = "
+        SELECT
+            p.titulo,
+            COUNT(c.id) AS total_calificaciones,
+            ROUND(AVG(c.puntuacion), 2) AS promedio
+        FROM peliculas p
+
+        INNER JOIN calificaciones c
+            ON c.id_pelicula = p.id
+
+        GROUP BY
+            p.id,
+            p.titulo
+
+        ORDER BY
+            promedio DESC,
+            total_calificaciones DESC
+    ";
+
+    $stmt = $this->conexion->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function usuariosMasActivos()
+{
+    $sql = "
+        SELECT
+            u.nombre,
+            COUNT(h.id) AS total_vistas
+        FROM usuarios u
+
+        INNER JOIN historial h
+            ON h.id_usuario = u.id
+
+        GROUP BY
+            u.id,
+            u.nombre
+
+        ORDER BY
+            total_vistas DESC
+    ";
+
+    $stmt = $this->conexion->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function generosMasVistos()
+{
+    $sql = "
+        SELECT
+            g.nombre AS genero,
+            COUNT(h.id) AS total_vistas
+        FROM historial h
+
+        INNER JOIN peliculas p
+            ON p.id = h.id_pelicula
+
+        INNER JOIN generos g
+            ON g.id = p.id_genero
+
+        GROUP BY
+            g.id,
+            g.nombre
+
+        ORDER BY
+            total_vistas DESC
+    ";
+
+    $stmt = $this->conexion->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }
