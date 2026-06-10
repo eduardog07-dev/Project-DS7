@@ -26,9 +26,6 @@ class RecomendacionController
         $this->calificacionModel = new Calificacion();
     }
 
-    /**
-     * Preferencias
-     */
     public function preferencias()
     {
         $idUsuario = $_SESSION['usuario_id'];
@@ -42,41 +39,46 @@ class RecomendacionController
                 $generos
             );
 
-            header(
-                "Location: index.php?accion=preferencias"
-            );
-
+            header("Location: index.php?accion=preferencias");
             exit;
         }
 
         $preferencias =
             $this->preferenciaModel
-                ->obtenerPorUsuario(
-                    $idUsuario
-                );
+                ->obtenerPorUsuario($idUsuario);
 
         require 'vistas/usuario/preferencias.php';
     }
 
-    /**
-     * Recomendaciones
-     */
     public function recomendaciones()
     {
         $idUsuario = $_SESSION['usuario_id'];
 
         $peliculas =
             $this->peliculaModel
-                ->recomendacionesPorUsuario(
-                    $idUsuario
-                );
+                ->recomendacionesPorUsuario($idUsuario);
 
         require 'vistas/usuario/recomendaciones.php';
     }
 
-    /**
-     * Detalle + Historial + Calificaciones
-     */
+    public function cartelera()
+    {
+        $busqueda = $_GET['q'] ?? '';
+        $orden = $_GET['orden'] ?? 'titulo';
+
+        $busqueda = sanitizar($busqueda);
+        $orden = sanitizar($orden);
+
+        $peliculas =
+            $this->peliculaModel
+                ->cartelera(
+                    $busqueda,
+                    $orden
+                );
+
+        require 'vistas/usuario/cartelera.php';
+    }
+
     public function detalle()
     {
         $idPelicula =
@@ -84,16 +86,11 @@ class RecomendacionController
 
         $pelicula =
             $this->peliculaModel
-                ->obtenerPorId(
-                    $idPelicula
-                );
+                ->obtenerPorId($idPelicula);
 
         if (!$pelicula) {
 
-            header(
-                "Location: index.php?accion=recomendaciones"
-            );
-
+            header("Location: index.php?accion=recomendaciones");
             exit;
         }
 
@@ -108,10 +105,12 @@ class RecomendacionController
             $puntuacion =
                 (int) $_POST['puntuacion'];
 
+            if ($puntuacion < 1 || $puntuacion > 5) {
+                $puntuacion = 1;
+            }
+
             $comentario =
-                sanitizar(
-                    $_POST['comentario']
-                );
+                sanitizar($_POST['comentario']);
 
             $this->calificacionModel
                 ->guardar(
@@ -121,26 +120,17 @@ class RecomendacionController
                     $comentario
                 );
 
-            header(
-                "Location: index.php?accion=detalle&id="
-                . $idPelicula
-            );
-
+            header("Location: index.php?accion=detalle&id=" . $idPelicula);
             exit;
         }
 
         $comentarios =
             $this->calificacionModel
-                ->obtenerPorPelicula(
-                    $idPelicula
-                );
+                ->obtenerPorPelicula($idPelicula);
 
         require 'vistas/usuario/detalle.php';
     }
 
-    /**
-     * Perfil
-     */
     public function perfil()
     {
         $idUsuario =
@@ -148,21 +138,15 @@ class RecomendacionController
 
         $usuario =
             $this->usuarioModel
-                ->obtenerPorId(
-                    $idUsuario
-                );
+                ->obtenerPorId($idUsuario);
 
         $preferencias =
             $this->preferenciaModel
-                ->nombresPreferencias(
-                    $idUsuario
-                );
+                ->nombresPreferencias($idUsuario);
 
         $historial =
             $this->historialModel
-                ->obtenerPorUsuario(
-                    $idUsuario
-                );
+                ->obtenerPorUsuario($idUsuario);
 
         require 'vistas/usuario/perfil.php';
     }

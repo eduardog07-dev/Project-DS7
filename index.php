@@ -167,6 +167,12 @@ switch ($accion) {
     $controller->detalle();
 
     break;
+    
+    case 'cartelera':
+    require_once 'controlador/RecomendacionController.php';
+    $controller = new RecomendacionController();
+    $controller->cartelera();
+    break;
 
     // =========================
     // DEFAULT

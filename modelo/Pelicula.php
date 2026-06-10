@@ -23,7 +23,6 @@ class Pelicula
                 ORDER BY p.id DESC";
 
         $stmt = $this->conexion->prepare($sql);
-
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -36,7 +35,6 @@ class Pelicula
                 WHERE id = ?";
 
         $stmt = $this->conexion->prepare($sql);
-
         $stmt->execute([$id]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -112,155 +110,220 @@ class Pelicula
 
         return $stmt->execute([$id]);
     }
+
     public function totalPeliculas()
-{
-    $sql = "SELECT COUNT(*) AS total
-            FROM peliculas";
+    {
+        $sql = "SELECT COUNT(*) AS total
+                FROM peliculas";
 
-    $stmt = $this->conexion->prepare($sql);
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute();
 
-    $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-public function recomendacionesPorUsuario(
-    $idUsuario
-)
-{
-    $sql = "
-        SELECT
-            p.*,
-            g.nombre AS genero
-        FROM peliculas p
+    public function recomendacionesPorUsuario($idUsuario)
+    {
+        $sql = "
+            SELECT
+                p.*,
+                g.nombre AS genero
+            FROM peliculas p
 
-        INNER JOIN generos g
-            ON p.id_genero = g.id
+            INNER JOIN generos g
+                ON p.id_genero = g.id
 
-        INNER JOIN preferencias pref
-            ON pref.id_genero = p.id_genero
+            INNER JOIN preferencias pref
+                ON pref.id_genero = p.id_genero
 
-        WHERE pref.id_usuario = ?
+            WHERE pref.id_usuario = ?
 
-        ORDER BY p.titulo
-    ";
+            ORDER BY p.titulo
+        ";
 
-    $stmt =
-        $this->conexion->prepare($sql);
+        $stmt = $this->conexion->prepare($sql);
 
-    $stmt->execute([
-        $idUsuario
-    ]);
+        $stmt->execute([
+            $idUsuario
+        ]);
 
-    return $stmt->fetchAll(
-        PDO::FETCH_ASSOC
-    );
-}
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-public function totalUsuarios()
-{
-    $sql = "SELECT COUNT(*) AS total
-            FROM usuarios";
+    public function totalUsuarios()
+    {
+        $sql = "SELECT COUNT(*) AS total
+                FROM usuarios";
 
-    $stmt = $this->conexion->prepare($sql);
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute();
 
-    $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+    public function totalCalificaciones()
+    {
+        $sql = "SELECT COUNT(*) AS total
+                FROM calificaciones";
 
-public function totalCalificaciones()
-{
-    $sql = "SELECT COUNT(*) AS total
-            FROM calificaciones";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute();
 
-    $stmt = $this->conexion->prepare($sql);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
-    $stmt->execute();
+    public function peliculasMasCalificadas()
+    {
+        $sql = "
+            SELECT
+                p.titulo,
+                COUNT(c.id) AS total_calificaciones,
+                ROUND(AVG(c.puntuacion), 2) AS promedio
+            FROM peliculas p
 
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+            INNER JOIN calificaciones c
+                ON c.id_pelicula = p.id
 
-public function peliculasMasCalificadas()
-{
-    $sql = "
-        SELECT
-            p.titulo,
-            COUNT(c.id) AS total_calificaciones,
-            ROUND(AVG(c.puntuacion), 2) AS promedio
-        FROM peliculas p
+            GROUP BY
+                p.id,
+                p.titulo
 
-        INNER JOIN calificaciones c
-            ON c.id_pelicula = p.id
+            ORDER BY
+                promedio DESC,
+                total_calificaciones DESC
+        ";
 
-        GROUP BY
-            p.id,
-            p.titulo
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute();
 
-        ORDER BY
-            promedio DESC,
-            total_calificaciones DESC
-    ";
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-    $stmt = $this->conexion->prepare($sql);
+    public function usuariosMasActivos()
+    {
+        $sql = "
+            SELECT
+                u.nombre,
+                COUNT(h.id) AS total_vistas
+            FROM usuarios u
 
-    $stmt->execute();
+            INNER JOIN historial h
+                ON h.id_usuario = u.id
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+            GROUP BY
+                u.id,
+                u.nombre
 
-public function usuariosMasActivos()
-{
-    $sql = "
-        SELECT
-            u.nombre,
-            COUNT(h.id) AS total_vistas
-        FROM usuarios u
+            ORDER BY
+                total_vistas DESC
+        ";
 
-        INNER JOIN historial h
-            ON h.id_usuario = u.id
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute();
 
-        GROUP BY
-            u.id,
-            u.nombre
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-        ORDER BY
-            total_vistas DESC
-    ";
+    public function generosMasVistos()
+    {
+        $sql = "
+            SELECT
+                g.nombre AS genero,
+                COUNT(h.id) AS total_vistas
+            FROM historial h
 
-    $stmt = $this->conexion->prepare($sql);
+            INNER JOIN peliculas p
+                ON p.id = h.id_pelicula
 
-    $stmt->execute();
+            INNER JOIN generos g
+                ON g.id = p.id_genero
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+            GROUP BY
+                g.id,
+                g.nombre
 
-public function generosMasVistos()
-{
-    $sql = "
-        SELECT
-            g.nombre AS genero,
-            COUNT(h.id) AS total_vistas
-        FROM historial h
+            ORDER BY
+                total_vistas DESC
+        ";
 
-        INNER JOIN peliculas p
-            ON p.id = h.id_pelicula
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute();
 
-        INNER JOIN generos g
-            ON g.id = p.id_genero
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-        GROUP BY
-            g.id,
-            g.nombre
+    public function cartelera($busqueda = '', $orden = 'titulo')
+    {
+        $where = "";
+        $parametros = [];
 
-        ORDER BY
-            total_vistas DESC
-    ";
+        if (!empty($busqueda)) {
+            $where = "
+                WHERE
+                    p.titulo LIKE ?
+                    OR g.nombre LIKE ?
+                    OR p.anio LIKE ?
+            ";
 
-    $stmt = $this->conexion->prepare($sql);
+            $parametros[] = "%" . $busqueda . "%";
+            $parametros[] = "%" . $busqueda . "%";
+            $parametros[] = "%" . $busqueda . "%";
+        }
 
-    $stmt->execute();
+        $orderBy = "p.titulo ASC";
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        if ($orden === 'mejor_calificadas') {
+            $orderBy = "promedio_calificacion DESC";
+        }
 
+        if ($orden === 'mas_vistas') {
+            $orderBy = "total_vistas DESC";
+        }
+
+        if ($orden === 'recientes') {
+            $orderBy = "p.anio DESC";
+        }
+
+        $sql = "
+            SELECT
+                p.id,
+                p.titulo,
+                p.descripcion,
+                p.anio,
+                p.imagen,
+                g.nombre AS genero,
+                COUNT(DISTINCT h.id) AS total_vistas,
+                COUNT(DISTINCT c.id) AS total_calificaciones,
+                ROUND(AVG(c.puntuacion), 2) AS promedio_calificacion
+            FROM peliculas p
+
+            INNER JOIN generos g
+                ON g.id = p.id_genero
+
+            LEFT JOIN historial h
+                ON h.id_pelicula = p.id
+
+            LEFT JOIN calificaciones c
+                ON c.id_pelicula = p.id
+
+            $where
+
+            GROUP BY
+                p.id,
+                p.titulo,
+                p.descripcion,
+                p.anio,
+                p.imagen,
+                g.nombre
+
+            ORDER BY
+                $orderBy
+        ";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        $stmt->execute($parametros);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

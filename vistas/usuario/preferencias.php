@@ -95,4 +95,9 @@
 
     </button>
 
+<br><br>
+
+<a href="index.php">
+    Volver al menú principal
+</a>
 </form>

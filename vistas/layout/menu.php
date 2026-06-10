@@ -19,6 +19,10 @@
             Recomendaciones
         </a>
 
+        <a href="index.php?accion=cartelera">
+            Cartelera
+        </a>
+
         <?php if($_SESSION['rol'] === 'admin'): ?>
 
             <a href="index.php?accion=dashboard">
