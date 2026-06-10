@@ -13,11 +13,32 @@ class Historial
         $this->conexion = $db->conectar();
     }
 
-    public function registrar(
-        $idUsuario,
-        $idPelicula
-    )
+    public function registrar($idUsuario, $idPelicula)
     {
+        $sqlUltima = "
+            SELECT
+                id_pelicula
+            FROM historial
+            WHERE id_usuario = ?
+            ORDER BY fecha_vista DESC, id DESC
+            LIMIT 1
+        ";
+
+        $stmtUltima = $this->conexion->prepare($sqlUltima);
+
+        $stmtUltima->execute([
+            $idUsuario
+        ]);
+
+        $ultimaVista = $stmtUltima->fetch(PDO::FETCH_ASSOC);
+
+        if (
+            $ultimaVista &&
+            (int) $ultimaVista['id_pelicula'] === (int) $idPelicula
+        ) {
+            return false;
+        }
+
         $sql = "
             INSERT INTO historial
             (
@@ -28,8 +49,7 @@ class Historial
             (?, ?)
         ";
 
-        $stmt =
-            $this->conexion->prepare($sql);
+        $stmt = $this->conexion->prepare($sql);
 
         return $stmt->execute([
             $idUsuario,
@@ -37,9 +57,7 @@ class Historial
         ]);
     }
 
-    public function obtenerPorUsuario(
-        $idUsuario
-    )
+    public function obtenerPorUsuario($idUsuario)
     {
         $sql = "
             SELECT
@@ -52,18 +70,15 @@ class Historial
 
             WHERE h.id_usuario = ?
 
-            ORDER BY h.fecha_vista DESC
+            ORDER BY h.fecha_vista DESC, h.id DESC
         ";
 
-        $stmt =
-            $this->conexion->prepare($sql);
+        $stmt = $this->conexion->prepare($sql);
 
         $stmt->execute([
             $idUsuario
         ]);
 
-        return $stmt->fetchAll(
-            PDO::FETCH_ASSOC
-        );
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
