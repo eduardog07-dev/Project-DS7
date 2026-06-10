@@ -1,4 +1,14 @@
 # Project-DS7
+
+# Credenciales del Proyecto Final - DS7
+Administrador
+Email: admin@ds7.com
+pass: admin123
+Usuario
+Email: alejandro@test.com
+pass:12345
+
+
 # Roadmap del Proyecto Final - DS7
 
 La aplicacion debe aplicar lo visto en el semestre:
