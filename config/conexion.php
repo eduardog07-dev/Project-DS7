@@ -5,7 +5,7 @@ class Conexion
     private $host = "localhost";
     private $dbname = "peliculas_ds7";
     private $usuario = "root";
-    private $password = "122001";
+    private $password = "";
 
     public function conectar()
     {
