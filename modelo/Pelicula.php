@@ -112,4 +112,47 @@ class Pelicula
 
         return $stmt->execute([$id]);
     }
+    public function totalPeliculas()
+{
+    $sql = "SELECT COUNT(*) AS total
+            FROM peliculas";
+
+    $stmt = $this->conexion->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+public function recomendacionesPorUsuario(
+    $idUsuario
+)
+{
+    $sql = "
+        SELECT
+            p.*,
+            g.nombre AS genero
+        FROM peliculas p
+
+        INNER JOIN generos g
+            ON p.id_genero = g.id
+
+        INNER JOIN preferencias pref
+            ON pref.id_genero = p.id_genero
+
+        WHERE pref.id_usuario = ?
+
+        ORDER BY p.titulo
+    ";
+
+    $stmt =
+        $this->conexion->prepare($sql);
+
+    $stmt->execute([
+        $idUsuario
+    ]);
+
+    return $stmt->fetchAll(
+        PDO::FETCH_ASSOC
+    );
+}
 }

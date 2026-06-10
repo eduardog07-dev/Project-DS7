@@ -6,6 +6,10 @@ $accion = $_GET['accion'] ?? 'home';
 
 switch ($accion) {
 
+    // =========================
+    // PÁGINAS PÚBLICAS
+    // =========================
+
     case 'home':
         require 'vistas/home.php';
         break;
@@ -17,6 +21,10 @@ switch ($accion) {
     case 'registro':
         require 'vistas/registro.php';
         break;
+
+    // =========================
+    // AUTENTICACIÓN
+    // =========================
 
     case 'procesar_registro':
 
@@ -48,61 +56,121 @@ switch ($accion) {
 
         break;
 
+    // =========================
+    // ADMINISTRADOR
+    // =========================
+
     case 'dashboard':
 
-    require_once 'controlador/AdminController.php';
+        require_once 'controlador/AdminController.php';
 
-    $controller = new AdminController();
+        $controller = new AdminController();
 
-    $controller->dashboard();
+        $controller->dashboard();
 
-    break;
-
-    requireAdmin();
-
-    require 'vistas/admin/dashboard.php';
-
-    break;
+        break;
 
     case 'listar_peliculas':
 
-    require_once 'controlador/AdminController.php';
+        require_once 'controlador/AdminController.php';
 
-    $controller = new AdminController();
+        $controller = new AdminController();
 
-    $controller->listar();
+        $controller->listar();
 
-    break;
+        break;
 
     case 'crear_pelicula':
-        require 'vistas/admin/crear.php';
+
+        require_once 'controlador/AdminController.php';
+
+        $controller = new AdminController();
+
+        $controller->crear();
+
         break;
 
     case 'editar_pelicula':
-        require 'vistas/admin/editar.php';
+
+        require_once 'controlador/AdminController.php';
+
+        $controller = new AdminController();
+
+        $controller->editar();
+
+        break;
+
+    case 'eliminar_pelicula':
+
+        require_once 'controlador/AdminController.php';
+
+        $controller = new AdminController();
+
+        $controller->eliminar();
+
         break;
 
     case 'reportes':
+
         require 'vistas/admin/reportes.php';
+
         break;
+
+    // =========================
+    // USUARIO
+    // =========================
 
     case 'preferencias':
-        require 'vistas/usuario/preferencias.php';
-        break;
+
+    require_once
+        'controlador/RecomendacionController.php';
+
+    $controller =
+        new RecomendacionController();
+
+    $controller->preferencias();
+
+    break;
 
     case 'recomendaciones':
-        require 'vistas/usuario/recomendaciones.php';
-        break;
+
+    require_once 'controlador/RecomendacionController.php';
+
+    $controller = new RecomendacionController();
+
+    $controller->recomendaciones();
+
+    break;
 
     case 'perfil':
-        require 'vistas/usuario/perfil.php';
-        break;
+
+    require_once
+        'controlador/RecomendacionController.php';
+
+    $controller =
+        new RecomendacionController();
+
+    $controller->perfil();
+
+    break;
 
     case 'detalle':
-        require 'vistas/usuario/detalle.php';
-        break;
+
+    require_once 'controlador/RecomendacionController.php';
+
+    $controller = new RecomendacionController();
+
+    $controller->detalle();
+
+    break;
+
+    // =========================
+    // DEFAULT
+    // =========================
 
     default:
+
         require 'vistas/home.php';
+
         break;
 }

@@ -1,36 +1,67 @@
-<!DOCTYPE html>
-<html lang="es">
+<h1>MovieMatch DS7</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <title>MovieMatch DS7</title>
-    <link rel="stylesheet" href="assets/css/estilos.css">
-</head>
+<?php if(isset($_SESSION['nombre'])): ?>
 
-<body>
-
-    <h1>MovieMatch DS7</h1>
-
-    <nav>
-        <a href="index.php">Inicio</a>
-        <a href="index.php?accion=login">Login</a>
-        <a href="index.php?accion=registro">Registro</a>
-    </nav>
+    <p>
+        Bienvenido <?= htmlspecialchars($_SESSION['nombre']) ?>
+    </p>
 
     <hr>
 
-    <h2>Películas Destacadas</h2>
+    <?php if($_SESSION['rol'] === 'admin'): ?>
 
-    <div class="peliculas">
+        <a href="index.php?accion=dashboard">
+            Dashboard Admin
+        </a>
 
-        <div class="card">
-            <img src="https://via.placeholder.com/200x300" alt="">
-            <h3>Película Demo</h3>
-            <p>Acción</p>
-        </div>
+        <br><br>
 
-    </div>
+        <a href="index.php?accion=listar_peliculas">
+            Gestionar Películas
+        </a>
 
-</body>
+        <br><br>
 
-</html>
+        <a href="index.php?accion=reportes">
+            Reportes
+        </a>
+
+        <br><br>
+
+    <?php endif; ?>
+
+    <a href="index.php?accion=perfil">
+        Mi Perfil
+    </a>
+
+    <br><br>
+
+    <a href="index.php?accion=preferencias">
+        Preferencias
+    </a>
+
+    <br><br>
+
+    <a href="index.php?accion=recomendaciones">
+        Recomendaciones
+    </a>
+
+    <br><br>
+
+    <a href="index.php?accion=logout">
+        Cerrar Sesión
+    </a>
+
+<?php else: ?>
+
+    <a href="index.php?accion=login">
+        Iniciar Sesión
+    </a>
+
+    <br><br>
+
+    <a href="index.php?accion=registro">
+        Registrarse
+    </a>
+
+<?php endif; ?>

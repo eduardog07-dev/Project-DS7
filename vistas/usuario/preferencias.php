@@ -3,21 +3,94 @@
 <form method="POST">
 
     <label>
-        <input type="checkbox" name="generos[]">
+
+        <input
+            type="checkbox"
+            name="generos[]"
+            value="1"
+
+            <?= in_array(1, $preferencias)
+                ? 'checked'
+                : '' ?>>
+
         Acción
+
     </label>
 
     <br>
 
     <label>
-        <input type="checkbox" name="generos[]">
+
+        <input
+            type="checkbox"
+            name="generos[]"
+            value="2"
+
+            <?= in_array(2, $preferencias)
+                ? 'checked'
+                : '' ?>>
+
         Comedia
+
+    </label>
+
+    <br>
+
+    <label>
+
+        <input
+            type="checkbox"
+            name="generos[]"
+            value="3"
+
+            <?= in_array(3, $preferencias)
+                ? 'checked'
+                : '' ?>>
+
+        Drama
+
+    </label>
+
+    <br>
+
+    <label>
+
+        <input
+            type="checkbox"
+            name="generos[]"
+            value="4"
+
+            <?= in_array(4, $preferencias)
+                ? 'checked'
+                : '' ?>>
+
+        Terror
+
+    </label>
+
+    <br>
+
+    <label>
+
+        <input
+            type="checkbox"
+            name="generos[]"
+            value="5"
+
+            <?= in_array(5, $preferencias)
+                ? 'checked'
+                : '' ?>>
+
+        Ciencia Ficción
+
     </label>
 
     <br><br>
 
-    <button>
-        Guardar
+    <button type="submit">
+
+        Guardar Preferencias
+
     </button>
 
 </form>

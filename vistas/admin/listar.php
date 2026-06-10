@@ -1,5 +1,11 @@
 <h1>Listado de Películas</h1>
 
+<a href="index.php?accion=crear_pelicula">
+    Nueva Película
+</a>
+
+<br><br>
+
 <table border="1">
 
     <tr>
@@ -7,6 +13,7 @@
         <th>Título</th>
         <th>Género</th>
         <th>Año</th>
+        <th>Acciones</th>
     </tr>
 
     <?php foreach($peliculas as $pelicula): ?>
@@ -27,6 +34,21 @@
 
             <td>
                 <?= htmlspecialchars($pelicula['anio']) ?>
+            </td>
+
+            <td>
+
+                <a href="index.php?accion=editar_pelicula&id=<?= $pelicula['id'] ?>">
+                    Editar
+                </a>
+
+                |
+
+                <a href="index.php?accion=eliminar_pelicula&id=<?= $pelicula['id'] ?>"
+                   onclick="return confirm('¿Desea eliminar esta película?')">
+                    Eliminar
+                </a>
+
             </td>
 
         </tr>

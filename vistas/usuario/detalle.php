@@ -1,30 +1,23 @@
-<h1>Detalle de Película</h1>
+<h1>
+    <?= htmlspecialchars($pelicula['titulo']) ?>
+</h1>
 
-<h2>Título</h2>
+<p>
+    <?= htmlspecialchars($pelicula['descripcion']) ?>
+</p>
 
-<p>Descripción de la película</p>
+<p>
+    Año:
+    <?= htmlspecialchars($pelicula['anio']) ?>
+</p>
 
-<hr>
+<p>
+    ID Género:
+    <?= htmlspecialchars($pelicula['id_genero']) ?>
+</p>
 
-<h3>Calificar</h3>
+<br>
 
-<form method="POST">
-
-    <input
-        type="number"
-        min="1"
-        max="5"
-        name="puntuacion">
-
-    <br><br>
-
-    <textarea
-        name="comentario"></textarea>
-
-    <br><br>
-
-    <button>
-        Enviar
-    </button>
-
-</form>
+<a href="index.php?accion=recomendaciones">
+    Volver a recomendaciones
+</a>
