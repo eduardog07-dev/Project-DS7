@@ -193,24 +193,24 @@ VALUES
 
 INSERT INTO usuarios
 (
-id,
-nombre,
-email,
-password,
-rol
+    id,
+    nombre,
+    email,
+    password,
+    rol
 )
 VALUES
 (
-1,
-'Administrador',
-'[admin@ds7.com](mailto:admin@ds7.com)',
-'$2y$10$8Wq6vX9q8y0K2xV3YbXfV.9lL3N6HqH8xq9D7v4T8mYJ2xP1u9J6u',
-'admin'
+    1,
+    'Administrador',
+    'admin@ds7.com',
+    '$2y$10$8Wq6vX9q8y0K2xV3YbXfV.9lL3N6HqH8xq9D7v4T8mYJ2xP1u9J6u',
+    'admin'
 ),
 (
-2,
-'Alejandro',
-'[alejandro@test.com](mailto:alejandro@test.com)',
-'$2y$10$8Wq6vX9q8y0K2xV3YbXfV.9lL3N6HqH8xq9D7v4T8mYJ2xP1u9J6u',
-'usuario'
+    2,
+    'Alejandro',
+    'alejandro@test.com',
+    '$2y$10$8Wq6vX9q8y0K2xV3YbXfV.9lL3N6HqH8xq9D7v4T8mYJ2xP1u9J6u',
+    'usuario'
 );
