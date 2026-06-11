@@ -65,3 +65,6 @@
     </button>
 
 </form>
+<a href="index.php?accion=listar_peliculas">
+    Volver al Listado de Películas
+</a>
