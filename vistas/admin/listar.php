@@ -1,8 +1,8 @@
 <?php require 'vistas/layout/menu.php'; ?>
-<link rel="stylesheet" href="assets/css/estilos.css">
+
 <h1>Listado de Películas</h1>
 
-<a href="index.php?accion=crear_pelicula">
+<a href="index.php?accion=crear_pelicula" class="btn-accion btn-editar">
     Nueva Película
 </a>
 
@@ -40,16 +40,39 @@
 
             <td>
 
-                <a href="index.php?accion=editar_pelicula&id=<?= $pelicula['id'] ?>">
-                    Editar
-                </a>
+                <div class="acciones-tabla">
 
-                |
+                    <a
+                        class="btn-accion btn-editar"
+                        href="index.php?accion=editar_pelicula&id=<?= $pelicula['id'] ?>">
+                        Editar
+                    </a>
 
-                <a href="index.php?accion=eliminar_pelicula&id=<?= $pelicula['id'] ?>"
-                   onclick="return confirm('¿Desea eliminar esta película?')">
-                    Eliminar
-                </a>
+                    <form
+                        method="POST"
+                        action="index.php?accion=eliminar_pelicula"
+                        style="display:inline;">
+
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            value="<?= generarTokenCSRF() ?>">
+
+                        <input
+                            type="hidden"
+                            name="id"
+                            value="<?= htmlspecialchars($pelicula['id']) ?>">
+
+                        <button
+                            type="submit"
+                            class="btn-accion btn-eliminar"
+                            onclick="return confirm('¿Desea eliminar esta película?')">
+                            Eliminar
+                        </button>
+
+                    </form>
+
+                </div>
 
             </td>
 
@@ -58,3 +81,11 @@
     <?php endforeach; ?>
 
 </table>
+
+<br>
+
+<a href="index.php?accion=dashboard">
+    Volver al Dashboard
+</a>
+
+</div>

@@ -82,14 +82,26 @@ class AdminController
     }
 
     public function eliminar()
-    {
-        $id = (int) $_GET['id'];
-
-        $this->peliculaModel->eliminar($id);
-
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         header("Location: index.php?accion=listar_peliculas");
         exit;
     }
+
+    validarTokenCSRF($_POST['csrf_token'] ?? '');
+
+    $id = (int) ($_POST['id'] ?? 0);
+
+    if ($id <= 0) {
+        header("Location: index.php?accion=listar_peliculas");
+        exit;
+    }
+
+    $this->peliculaModel->eliminar($id);
+
+    header("Location: index.php?accion=listar_peliculas");
+    exit;
+}
 
     public function reportes()
     {
