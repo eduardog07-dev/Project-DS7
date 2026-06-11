@@ -32,7 +32,11 @@ class RecomendacionController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+            validarTokenCSRF($_POST['csrf_token'] ?? '');
+
             $generos = $_POST['generos'] ?? [];
+
+            $generos = array_map('intval', $generos);
 
             $this->preferenciaModel->guardar(
                 $idUsuario,
@@ -102,15 +106,21 @@ class RecomendacionController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+            validarTokenCSRF($_POST['csrf_token'] ?? '');
+
             $puntuacion =
-                (int) $_POST['puntuacion'];
+                (int) ($_POST['puntuacion'] ?? 0);
 
             if ($puntuacion < 1 || $puntuacion > 5) {
-                $puntuacion = 1;
+                die("Puntuación inválida.");
             }
 
             $comentario =
-                sanitizar($_POST['comentario']);
+                sanitizar($_POST['comentario'] ?? '');
+
+            if (empty($comentario)) {
+                die("El comentario no puede estar vacío.");
+            }
 
             $this->calificacionModel
                 ->guardar(

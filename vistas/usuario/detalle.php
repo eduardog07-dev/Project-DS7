@@ -18,7 +18,10 @@
 <h3>Calificar Película</h3>
 
 <form method="POST">
-
+<input
+    type="hidden"
+    name="csrf_token"
+    value="<?= generarTokenCSRF() ?>">
     <label>Puntuación</label>
     <br>
 
@@ -88,4 +91,10 @@
 
 <a href="index.php?accion=recomendaciones">
     Volver a recomendaciones
+</a>
+
+&nbsp; | &nbsp;
+
+<a href="index.php?accion=cartelera">
+    Volver a cartelera
 </a>
